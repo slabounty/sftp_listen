@@ -22,7 +22,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Generate rsa and dsa keys
+ssh-keygen -t rsa -f keys/rsa_key
+ssh-keygen -t dsa -f keys/dsa_key
+
+### Create a Listener
+```ruby
+class MyListener
+  def perform(modified, added, removed)
+    puts "modified = #{modified}"
+    puts "added = #{added}"
+    puts "removed = #{removed}"
+  end
+end
+```
+
+### Add an Initializer
+```ruby
+SftpListen.configure do |config|
+  config.handler_klass = MyListener
+  config.directories = ["sftp_files/inbound", "sftp_files/outbound"]
+  config.user_name = 'listen_test'
+  config.password = 'listen_test'
+  config.port = '2299'
+
+  config.rsa_key = File.expand_path('../keys/rsa_key', __FILE__)
+  fail "could not find rsa key file: #{config.rsa_key}" unless File.exist?(config.rsa_key)
+
+  config.dsa_key = File.expand_path('../keys/dsa_key', __FILE__)
+  fail "could not find dsa key file: #{config.dsa_key}" unless File.exist?(config.dsa_key)
+end
+```
+
+### Create and start the listener
+```ruby
+sftp_listener = SftpListen::SftpListener.new
+sftp_listener.start
+```
 
 ## Development
 
@@ -32,7 +68,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sftp_listen.
+Bug reports and pull requests are welcome on GitHub at https://github.com/slabounty/sftp_listen.
 
 
 ## License
