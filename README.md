@@ -4,6 +4,11 @@ Welcome to your new gem! In this directory, you'll find the files you need to be
 
 ## Installation
 
+Install libssh on Mac OS X (must be greater than 0.6.3)
+```
+brew install libssh
+```
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -70,6 +75,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/slabounty/sftp_listen.
 
+## Acknowledgements
+
+* Advice from [Chris Bielinski](https://github.com/chrisb)
+* SFTP Server gem from https://github.com/corgibytes/sftp_server
+* Listen gem from https://github.com/guard/listen
 
 ## License
 
