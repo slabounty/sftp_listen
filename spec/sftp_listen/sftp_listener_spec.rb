@@ -19,6 +19,30 @@ module SftpListen
       end
     end
 
+    describe "#sftp_server_start" do
+      let!(:sftp_server) { double('sftp_server').as_null_object }
+
+      it "forks a process" do
+        expect(subject).to receive(:fork) do |&block|
+          expect(SFTPServer::Server).to receive(:new).and_return(sftp_server)
+          block.call
+        end
+
+        subject.sftp_server_start
+      end
+
+      it "opens the server" do
+        expect(sftp_server).to receive(:open)
+
+        allow(subject).to receive(:fork) do |&block|
+          allow(SFTPServer::Server).to receive(:new).and_return(sftp_server)
+          block.call
+        end
+
+        subject.sftp_server_start
+      end
+    end
+
     describe "#listener_start" do
       let(:listener) { double('listener').as_null_object }
 

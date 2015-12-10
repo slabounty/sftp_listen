@@ -10,7 +10,6 @@ module SftpListen
     end
 
     def sftp_server_start
-      puts "starting server #{Process.pid}"
       server_pid = fork do
         @server = SFTPServer::Server.new(
           rsa_key: SftpListen.configuration.rsa_key,
@@ -21,12 +20,8 @@ module SftpListen
           listen_address: '0.0.0.0',
           verbose: true,
         )
-        puts "opening server #{Process.pid}"
         @server.open
-        puts "server open #{Process.pid}"
       end
-
-      puts "server open #{Process.pid}"
     end
 
     def listener_start
