@@ -23,8 +23,10 @@ Or install it yourself as:
 ## Usage
 
 ### Generate rsa and dsa keys
+```bash
 ssh-keygen -t rsa -f keys/rsa_key
 ssh-keygen -t dsa -f keys/dsa_key
+```
 
 ### Create a Listener
 ```ruby
