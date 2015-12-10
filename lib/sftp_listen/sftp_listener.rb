@@ -27,11 +27,9 @@ module SftpListen
       end
 
       puts "server open #{Process.pid}"
-      #Process.wait(server_pid)
     end
 
     def listener_start
-      puts "starting listener #{Process.pid}"
       @listener = Listen.to(*SftpListen.configuration.directories) do |modified, added, removed|
         SftpListen.configuration.handler_klass.new.perform(modified, added, removed)
       end

@@ -3,6 +3,11 @@ require "spec_helper"
 module SftpListen
   describe SftpListener do
     describe "#start" do
+      before do
+        allow(subject).to receive(:sftp_server_start)
+        allow(subject).to receive(:listener_start)
+      end
+
       it "starts the SFTP server" do
         expect(subject).to receive(:sftp_server_start)
         subject.start
