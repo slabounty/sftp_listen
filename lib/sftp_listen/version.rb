@@ -1,3 +1,3 @@
-module SftpListen
+class SftpListen
   VERSION = "0.1.0"
 end
